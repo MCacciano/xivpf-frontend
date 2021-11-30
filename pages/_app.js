@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 
 import UserContextProvider from '../context/user';
-import Navigation from '../components/Navigation';
+import Navigation from '@/components/Navigation';
 
 function MyApp({ Component, pageProps }) {
   return (
