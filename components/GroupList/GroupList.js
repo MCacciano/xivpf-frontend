@@ -12,7 +12,9 @@ const GroupList = ({ user, groups = [], onJoinGroup }) => {
                 <Button
                   type='button'
                   intent={
-                    members.some(({ _id }) => _id === user?._id) ? 'danger' : 'primary'
+                    members.some(({ _id }) => _id === user?._id)
+                      ? 'danger-outline'
+                      : 'primary-outline'
                   }
                   onClick={() => {
                     if (onJoinGroup) onJoinGroup(_id);

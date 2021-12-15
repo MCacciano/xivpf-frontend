@@ -2,7 +2,6 @@ import { useState } from 'react';
 import useUser from '@/hooks/useUser';
 
 import GroupList from '@/components/GroupList';
-import Button from '@/components/Button';
 
 const fetchGroups = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/groups`);
@@ -35,13 +34,8 @@ export default function Home({ data }) {
     }
   };
 
-  const handleOnCreateGroup = () => {};
-
   return (
     <div className='flex flex-col space-y-6 p-10 mx-auto max-w-screen-md'>
-      <Button intent='primary' onClick={handleOnCreateGroup}>
-        Create
-      </Button>
       <GroupList user={user} groups={groups} onJoinGroup={handleOnJoinGroup} />
     </div>
   );
