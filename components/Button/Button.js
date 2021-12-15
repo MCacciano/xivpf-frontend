@@ -7,12 +7,13 @@ const Button = ({
   children,
   ...props
 }) => {
-  const { bgColor, borderColor, textColor } = useIntent(intent);
+  const { bgColor, borderColor, textColor, hoverBgColor, hoverTextColor } =
+    useIntent(intent);
 
   return (
     <button
       type={type}
-      className={`rounded shadow py-1 px-2 ${className}`}
+      className={`rounded shadow py-1 px-2 ${bgColor} ${hoverBgColor} border ${borderColor} ${textColor} ${hoverTextColor} ${className}`}
       {...props}
     >
       {children}

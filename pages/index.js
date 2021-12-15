@@ -17,6 +17,8 @@ export default function Home({ data }) {
 
   const [groups, setGroups] = useState(data || []);
 
+  // TODO: this handles joing and leave, split it
+  // TODO: it's respective functions
   const handleOnJoinGroup = async (id) => {
     try {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/groups/${id}/join`, {
@@ -37,6 +39,9 @@ export default function Home({ data }) {
 
   return (
     <div className='flex flex-col space-y-6 p-10 mx-auto max-w-screen-md'>
+      <Button intent='primary' onClick={handleOnCreateGroup}>
+        Create
+      </Button>
       <GroupList user={user} groups={groups} onJoinGroup={handleOnJoinGroup} />
     </div>
   );

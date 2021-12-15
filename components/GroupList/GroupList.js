@@ -1,3 +1,5 @@
+import Button from '../Button';
+
 const GroupList = ({ user, groups = [], onJoinGroup }) => {
   return (
     <div className='flex flex-col space-y-6'>
@@ -7,21 +9,18 @@ const GroupList = ({ user, groups = [], onJoinGroup }) => {
             <div className='flex justify-between items-center '>
               <h2 className='text-lg'>{name}</h2>
               {user && owner !== user._id && (
-                <button
+                <Button
                   type='button'
+                  intent={
+                    members.some(({ _id }) => _id === user?._id) ? 'danger' : 'primary'
+                  }
                   onClick={() => {
                     if (onJoinGroup) onJoinGroup(_id);
                   }}
-                  className={`border rounded font-semibold text-sm py-1 px-2 ${
-                    members.some(({ _id }) => _id === user?._id)
-                      ? 'border-red-600 text-red-600'
-                      : 'border-blue-600 text-blue-600'
-                  }`}
+                  className='font-semibold text-sm'
                 >
-                  {members.some(({ _id }) => _id === user?._id)
-                    ? '- Leave'
-                    : '+ Join'}
-                </button>
+                  {members.some(({ _id }) => _id === user?._id) ? '- Leave' : '+ Join'}
+                </Button>
               )}
             </div>
             <div className='text-sm'>

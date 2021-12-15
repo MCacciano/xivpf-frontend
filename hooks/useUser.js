@@ -11,30 +11,24 @@ const useUser = () => {
 
     if (currentToken) {
       const fetchUserDetails = async () => {
-        const userRes = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
-          {
-            headers: { Authorization: `Bearer ${currentToken}` },
-          }
-        );
+        const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+          headers: { Authorization: `Bearer ${currentToken}` },
+        });
 
         const { data: userDetails } = await userRes.json();
 
         setUser(userDetails);
 
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: userDetails.email,
-              token: currentToken,
-            }),
-          }
-        );
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: userDetails.email,
+            token: currentToken,
+          }),
+        });
         const { token } = await res.json();
 
         setToken(token);
