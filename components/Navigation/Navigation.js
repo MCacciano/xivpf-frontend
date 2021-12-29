@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import useUser from '@/hooks/useUser';
+import { useRouter } from 'next/router';
 
 const Navigation = () => {
   const {
-    state: { user, token },
+    state: { user },
     setUser,
   } = useUser();
+
+  const router = useRouter();
 
   const [preLoaded, setPreLoaded] = useState(null);
   const [show, setShow] = useState('');
@@ -24,6 +27,7 @@ const Navigation = () => {
       localStorage.removeItem('lfgpf-token');
       setUser(null);
       setPreLoaded(false);
+      router.push('/login');
     } catch (err) {
       console.error(err);
     }

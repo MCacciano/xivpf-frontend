@@ -8,7 +8,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    email: '',
+    handle: '',
     password: '',
   });
 
@@ -19,9 +19,9 @@ export default function LoginPage() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    const { email, password } = formData;
+    const { handle, password } = formData;
 
-    if (!email || !password) {
+    if (!handle || !password) {
       console.error('Please enter email and password');
       return;
     }
@@ -32,18 +32,21 @@ export default function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ handle, password }),
       });
       const { token } = await res.json();
 
-      const userRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/me`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      if (!token) return;
+
+      const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/me`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       const { data: userDetails } = await userRes.json();
+
+      console.log(`userDetails`, userDetails);
+
+      if (!userDetails) return;
 
       setToken(token);
       setUser(userDetails);
